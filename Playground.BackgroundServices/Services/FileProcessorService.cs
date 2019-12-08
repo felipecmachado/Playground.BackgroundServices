@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Playground.BackgroundServices.Core;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -25,7 +26,6 @@ namespace Playground.BackgroundServices.Services
 
         public Task StartAsync(CancellationToken cancellationToken)
         {
-            // Create a linked token so we can trigger cancellation outside of this token's cancellation
             _cts = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
 
             Task task = Task.Run(async () =>
@@ -66,12 +66,11 @@ namespace Playground.BackgroundServices.Services
                     {
                         try
                         {
+                            var workflow = WorkflowFactory.GetWorkflow(file);
+
+                            workflow.Execute();
+
                             file.Delete();
-                        }
-                        catch (IOException)
-                        {
-                            _logger.LogWarning($"An error occured when trying to delete the file {file.Name}");
-                            break;
                         }
                         catch (Exception ex)
                         {
@@ -105,7 +104,7 @@ namespace Playground.BackgroundServices.Services
 
         private IEnumerable<FileInfo> ReadFiles()
             => new DirectoryInfo(this.DATA_PATH)
-                .EnumerateFiles("*.txt", SearchOption.TopDirectoryOnly)
+                .EnumerateFiles("*.*", SearchOption.TopDirectoryOnly)
                 .OrderBy(file => file.CreationTime);
     }
 }

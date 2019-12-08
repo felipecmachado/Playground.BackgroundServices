@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace Playground.BackgroundServices.Shared.Models
+﻿namespace Playground.BackgroundServices.Shared.Models
 {
     public class Item
     {

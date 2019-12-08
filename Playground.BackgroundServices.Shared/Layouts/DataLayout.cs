@@ -5,24 +5,22 @@ using System.Text;
 
 namespace Playground.BackgroundServices.Shared.Layouts
 {
-    public class DataLayout : LayoutBase
+    public class SalesLayout : LayoutBase
     {
-        public DataLayout()
+        public SalesLayout()
         {
             this.Separator = "Ç";
 
-            this.Pattern = "*.txt";
-
             this.Sellers = new List<Seller>();
 
-            this.Clients = new List<Client>();
+            this.Customers = new List<Customer>();
 
             this.Sales = new List<Sale>();
         }
 
         public IList<Seller> Sellers { get; private set; }
 
-        public IList<Client> Clients { get; private set; }
+        public IList<Customer> Customers { get; private set; }
 
         public IList<Sale> Sales { get; private set; }
 
