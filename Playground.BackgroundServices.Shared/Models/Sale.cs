@@ -8,11 +8,17 @@ namespace Playground.BackgroundServices.Shared.Models
         private readonly char ITEM_SEPARATOR = ',';
         private readonly char INTERNAL_ITEM_SEPARATOR = '-';
 
-        public Sale(string[] data)
+        public Sale(int id, string sellerName)
         {
-            this.ID = Int32.Parse(data[1]);
+            this.ID = id;
+            this.SellerName = sellerName;
+            this.Items = new List<Item>();
+        }
+
+        public Sale(string[] data) 
+            : this(id: Int32.Parse(data[1]), data[3])
+        {
             this.Parse(data[2]);
-            this.SellerName = data[3];
         }
 
         public int ID { get; set; }
@@ -23,8 +29,6 @@ namespace Playground.BackgroundServices.Shared.Models
 
         private void Parse(string data)
         {
-            this.Items = new List<Item>();
-
             var records = data.Substring(1, data.Length-2).Split(ITEM_SEPARATOR);
 
             foreach (var record in records)

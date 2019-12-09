@@ -25,10 +25,14 @@ namespace Playground.BackgroundServices.Core.Reports
 
             using (StreamWriter stream = File.CreateText(path))
             {
-                stream.WriteLine(CustomersCount.Run(layout));
-                stream.WriteLine(SellersCounter.Run(layout));
-                stream.WriteLine(MostExpensiveSale.Run(layout));
-                stream.WriteLine(WorstSeller.Run(layout));
+                stream.WriteLine($"CustomersCount: {CustomersCount.Run(layout)}");
+                stream.WriteLine($"SellersCounter: {SellersCounter.Run(layout)}");
+
+                var mostExpensive = MostExpensiveSale.Run(layout);
+                stream.WriteLine($"MostExpensiveSale: ID {mostExpensive.ID} - Total {mostExpensive.Value}");
+
+                var worst = WorstSeller.Run(layout);
+                stream.WriteLine($"WorstSeller: {worst.Seller} - Sold {worst.Sold}");
             }
         }
     }

@@ -2,12 +2,14 @@
 {
     public class Customer
     {
-        public Customer(string[] data)
+        public Customer(string cnpj, string name, string businessArea)
         {
-            this.CNPJ = data[1];
-            this.Name = data[2];
-            this.BusinessArea = data[3];
+            this.CNPJ = cnpj;
+            this.Name = name;
+            this.BusinessArea = businessArea;
         }
+
+        public Customer(string[] data) : this(data[1], data[2], data[3]) { }
 
         public string CNPJ { get; set; }
 

@@ -6,7 +6,7 @@ namespace Playground.BackgroundServices.Reports.Analytics
 {
     public static class MostExpensiveSale
     {
-        public static string Run(SalesLayout data)
+        public static (int ID, float Value) Run(SalesLayout data)
         {
             if (data == null)
                 throw new ArgumentNullException();
@@ -19,7 +19,7 @@ namespace Playground.BackgroundServices.Reports.Analytics
                 ).OrderByDescending(x => x.Value)
                 .FirstOrDefault();
 
-            return $"MostExpensiveSale: ID {response.Key} - Sold {response.Value}";
+            return (response.Key, response.Value);
         }
     }
 }

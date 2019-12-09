@@ -6,14 +6,14 @@ namespace Playground.BackgroundServices.Reports.Analytics
 {
     public static class SellersCounter
     {
-        public static string Run(SalesLayout data)
+        public static int Run(SalesLayout data)
         {
             if (data == null)
                 throw new ArgumentNullException();
 
             var response = data.Sellers.Distinct().Count();
 
-            return $"SellersCounter: {response}";
+            return response;
         }
     }
 }

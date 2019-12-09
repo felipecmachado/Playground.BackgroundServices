@@ -6,7 +6,7 @@ namespace Playground.BackgroundServices.Reports.Analytics
 {
     public static class WorstSeller
     {
-        public static string Run(SalesLayout data)
+        public static (string Seller, float Sold) Run(SalesLayout data)
         {
             if (data == null)
                 throw new ArgumentNullException();
@@ -19,7 +19,7 @@ namespace Playground.BackgroundServices.Reports.Analytics
                     v => v.Sum(d => d.Items.Sum(s => s.Price * s.Quantity))
                 ).OrderBy(x => x.Value).FirstOrDefault();
 
-            return $"WorstSeller: {worst.Key} - Sold {worst.Value}";
+            return (worst.Key, worst.Value);
         }
     }
 }
