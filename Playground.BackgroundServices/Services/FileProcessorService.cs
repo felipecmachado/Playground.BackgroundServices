@@ -12,11 +12,14 @@ namespace Playground.BackgroundServices.Services
 {
     public class FileProcessorService : IHostedService
     {
+        // Added read interval to avoid unnecessary polling 
         private readonly TimeSpan interval = TimeSpan.FromSeconds(30);
-        private readonly TimeSpan throttleRate = TimeSpan.FromSeconds(5);
-        private readonly string DATA_PATH = "data/in";
-        private CancellationTokenSource _cts;
 
+        // Added throttling to avoid high cpu usage
+        private readonly TimeSpan throttleRate = TimeSpan.FromSeconds(5);
+
+        private CancellationTokenSource _cts;
+        private readonly string DATA_PATH = "data\\in";
         private readonly ILogger<FileProcessorService> _logger;
 
         public FileProcessorService(ILogger<FileProcessorService> logger)
@@ -76,7 +79,8 @@ namespace Playground.BackgroundServices.Services
 
                             _logger.LogInformation($"{file} processed successfully.");
                         }
-                        catch (Exception ex)
+                        catch (Exception ex) // An exception here should not stop the background process from running
+
                         {
                             var path = $"{file.DirectoryName}\\error\\{file.Name}.error";
                             file.MoveTo(path, true);
@@ -93,7 +97,7 @@ namespace Playground.BackgroundServices.Services
                     _logger.LogInformation($"There are no files to be processed");
                 }
             }
-            catch (Exception ex)
+            catch (Exception ex) 
             {
                 _logger.LogCritical($"A fatal exception occurred: {ex.Message}");
             }

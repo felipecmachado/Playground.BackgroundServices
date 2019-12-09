@@ -16,7 +16,8 @@ namespace Playground.BackgroundServices.Reports.Analytics
                 (
                     k => k.ID,
                     v => v.Items.Sum(s => s.Price * s.Quantity)
-                ).OrderBy(x => x.Value).FirstOrDefault();
+                ).OrderByDescending(x => x.Value)
+                .FirstOrDefault();
 
             return $"MostExpensiveSale: ID {response.Key} - Sold {response.Value}";
         }

@@ -12,7 +12,7 @@ namespace Playground.BackgroundServices.Core
         {
             // Step 1: Parse file
             var layout = new SalesLayout();
-            layout.Parse(this.FileInfo);
+            layout.Parse(this.fileInfo);
 
             // Step 2: Generate reports
             var report = new SalesReport();

@@ -6,11 +6,11 @@ namespace Playground.BackgroundServices.Core
 {
     public abstract class WorkflowBase : IWorkflow
     {
-        public readonly FileInfo FileInfo;
+        public readonly FileInfo fileInfo;
 
         public WorkflowBase(FileInfo file)
         {
-            this.FileInfo = file;
+            this.fileInfo = file;
         }
 
         public virtual void Execute()
