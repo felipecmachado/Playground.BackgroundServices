@@ -1,6 +1,5 @@
 ﻿using Playground.BackgroundServices.Core.Reports;
 using Playground.BackgroundServices.Shared.Layouts;
-using Playground.BackgroundServices.Shared.Models;
 using System.IO;
 
 namespace Playground.BackgroundServices.Core
@@ -13,11 +12,11 @@ namespace Playground.BackgroundServices.Core
         {
             // Step 1: Parse file
             var layout = new SalesLayout();
-
             layout.Parse(this.FileInfo);
 
             // Step 2: Generate reports
-            SalesReport.Run(layout);
+            var report = new SalesReport();
+            report.Run(layout);
         }
     }
 }

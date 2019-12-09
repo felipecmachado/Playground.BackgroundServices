@@ -67,12 +67,14 @@ namespace Playground.BackgroundServices.Services
                     foreach (var file in files)
                     {
                         try
-                        {
+                         {
                             var workflow = WorkflowFactory.GetWorkflow(file);
 
                             workflow.Execute();
 
-                            file.MoveTo($"{this.DATA_PATH}\\success\\{file.Name}");
+                            file.MoveTo($"{this.DATA_PATH}\\success\\{file.Name}", true);
+
+                            _logger.LogInformation($"{file} processed successfully.");
                         }
                         catch (Exception ex)
                         {
@@ -93,16 +95,14 @@ namespace Playground.BackgroundServices.Services
             }
             catch (Exception ex)
             {
-                _logger.LogCritical($"A exception occurred: {ex.Message}");
+                _logger.LogCritical($"A fatal exception occurred: {ex.Message}");
             }
         }
 
         private void EnsureDirectoryExists(string path)
         {
             if (!Directory.Exists(path))
-            {
                 Directory.CreateDirectory(path);
-            }
         }
 
         private IEnumerable<FileInfo> ReadFiles()

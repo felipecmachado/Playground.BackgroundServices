@@ -1,14 +1,35 @@
 ﻿using Playground.BackgroundServices.Reports.Analytics;
 using Playground.BackgroundServices.Shared.Layouts;
-using System;
+using System.IO;
 
 namespace Playground.BackgroundServices.Core.Reports
 {
-    public static class SalesReport
+    public class SalesReport
     {
-        public static void Run(SalesLayout layout)
+        private string DATA_OUT = "data/out";
+
+        public SalesReport()
         {
-            WorstSeller.Run(layout);
+            if (!Directory.Exists(DATA_OUT))
+                Directory.CreateDirectory(DATA_OUT);
+        }
+
+        public void Run(SalesLayout layout)
+        {
+            var path = $"{DATA_OUT}\\Output{layout.FileName}.txt";
+
+            if (File.Exists(path))
+            {
+                File.Delete(path);
+            }
+
+            using (StreamWriter stream = File.CreateText(path))
+            {
+                stream.WriteLine(CustomersCount.Run(layout));
+                stream.WriteLine(SellersCounter.Run(layout));
+                stream.WriteLine(MostExpensiveSale.Run(layout));
+                stream.WriteLine(WorstSeller.Run(layout));
+            }
         }
     }
 }

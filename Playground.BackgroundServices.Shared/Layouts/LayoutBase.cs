@@ -2,6 +2,8 @@
 {
     public abstract class LayoutBase
     {
+        public string FileName { get; set; }
+
         public char Separator { get; set; }
     }
 }

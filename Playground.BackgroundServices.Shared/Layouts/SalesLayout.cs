@@ -25,6 +25,8 @@ namespace Playground.BackgroundServices.Shared.Layouts
 
         public void Parse(FileInfo file)
         {
+            this.FileName = Path.GetFileNameWithoutExtension(file.Name);
+
             using (var fileStream = new FileStream(file.FullName, FileMode.Open, FileAccess.Read))
             using (StreamReader reader = new StreamReader(fileStream))
             {

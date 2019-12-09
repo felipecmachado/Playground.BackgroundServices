@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Playground.BackgroundServices.Shared.Models
+﻿namespace Playground.BackgroundServices.Shared.Models
 {
     public class Customer
     {

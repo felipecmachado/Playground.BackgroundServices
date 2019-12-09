@@ -4,22 +4,21 @@ using System.Linq;
 
 namespace Playground.BackgroundServices.Reports.Analytics
 {
-    public static class WorstSeller
+    public static class MostExpensiveSale
     {
         public static string Run(SalesLayout data)
         {
             if (data == null)
                 throw new ArgumentNullException();
 
-            var worst = data.Sales
-                .GroupBy(x => x.SellerName)
+            var response = data.Sales
                 .ToDictionary
                 (
-                    k => k.Key,
-                    v => v.Sum(d => d.Items.Sum(s => s.Price * s.Quantity))
-                ).OrderByDescending(x => x.Value).FirstOrDefault();
+                    k => k.ID,
+                    v => v.Items.Sum(s => s.Price * s.Quantity)
+                ).OrderBy(x => x.Value).FirstOrDefault();
 
-            return $"WorstSeller: {worst.Key} - Sold {worst.Value}";
+            return $"MostExpensiveSale: ID {response.Key} - Sold {response.Value}";
         }
     }
 }

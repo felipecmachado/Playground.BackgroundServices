@@ -1,8 +1,6 @@
 ﻿using Playground.BackgroundServices.Core.Workflows;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Text;
 
 namespace Playground.BackgroundServices.Core
 {

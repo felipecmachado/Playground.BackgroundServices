@@ -8,6 +8,7 @@ namespace Playground.BackgroundServices.Core
     {
         public static IWorkflow GetWorkflow(FileInfo fileInfo)
         {
+            // this is unclear at the moment, so it lacks a more robust logic
             switch (fileInfo.Extension)
             {
                 case ".txt":
