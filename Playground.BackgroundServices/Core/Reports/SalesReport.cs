@@ -1,13 +1,14 @@
-﻿using Playground.BackgroundServices.Shared.Layouts;
+﻿using Playground.BackgroundServices.Reports.Analytics;
+using Playground.BackgroundServices.Shared.Layouts;
 using System;
 
-namespace Playground.BackgroundServices.Services
+namespace Playground.BackgroundServices.Core.Reports
 {
     public static class SalesReport
     {
-        public static object Run(SalesLayout layout)
+        public static void Run(SalesLayout layout)
         {
-            throw new NotImplementedException();
+            WorstSeller.Run(layout);
         }
     }
 }

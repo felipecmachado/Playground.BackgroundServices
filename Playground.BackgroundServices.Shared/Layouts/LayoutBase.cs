@@ -1,12 +1,7 @@
-﻿using Playground.BackgroundServices.Shared.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Playground.BackgroundServices.Shared.Layouts
+﻿namespace Playground.BackgroundServices.Shared.Layouts
 {
     public abstract class LayoutBase
     {
-        public string Separator { get; set; }
+        public char Separator { get; set; }
     }
 }

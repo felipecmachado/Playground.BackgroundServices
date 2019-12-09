@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Playground.BackgroundServices.Reports.Reports
+﻿namespace Playground.BackgroundServices.Reports.Analytics
 {
     public class SellersCounter
     {

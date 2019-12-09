@@ -28,10 +28,12 @@ namespace Playground.BackgroundServices.Services
         {
             _cts = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
 
+            EnsureDirectoryExists(this.DATA_PATH);
+            EnsureDirectoryExists($"{this.DATA_PATH}\\error");
+            EnsureDirectoryExists($"{this.DATA_PATH}\\success");
+
             Task task = Task.Run(async () =>
             {
-                EnsureDirectoryExists(this.DATA_PATH);
-
                 while (!_cts.IsCancellationRequested)
                 {
                     await ProcessFiles();
@@ -70,11 +72,12 @@ namespace Playground.BackgroundServices.Services
 
                             workflow.Execute();
 
-                            file.Delete();
+                            file.MoveTo($"{this.DATA_PATH}\\success\\{file.Name}");
                         }
                         catch (Exception ex)
                         {
-                            file.MoveTo(file.FullName + ".error");
+                            var path = $"{file.DirectoryName}\\error\\{file.Name}.error";
+                            file.MoveTo(path, true);
                             _logger.LogError(ex, $"An error occured while processing {file.Name}");
                         }
 
@@ -96,7 +99,7 @@ namespace Playground.BackgroundServices.Services
 
         private void EnsureDirectoryExists(string path)
         {
-            if (Directory.Exists(path) == false)
+            if (!Directory.Exists(path))
             {
                 Directory.CreateDirectory(path);
             }
